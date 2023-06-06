@@ -6,6 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
+import MainCard from 'ui-component/cards/MainCard';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -27,7 +28,7 @@ const Tables = () => {
 
     const getMarkers = async () => {
         try {
-            const response = await fetch(process.env.REACT_APP_API_VARIABLE + 'getlatlng');
+            const response = await fetch(process.env.REACT_APP_API_URL + 'getlatlng');
             const markers = await response.json();
             // console.log(markers);
             setMarkers(markers);
@@ -41,59 +42,61 @@ const Tables = () => {
     }, []);
 
     return (
-        <Paper sx={{ width: '100%' }}>
-            <TableContainer sx={{ maxHeight: 700 }}>
-                <Table stickyHeader aria-label="sticky table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell col={1}>S/N</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Role</TableCell>
-                            <TableCell>Phone</TableCell>
-                            <TableCell>Address</TableCell>
-                            <TableCell align="center" col={3}>
-                                Action
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {markers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((marker) => {
-                            return (
-                                <TableRow hover role="checkbox" tabIndex={-1} key={marker.id}>
-                                    <TableCell col={1}>{marker.id}</TableCell>
-                                    <TableCell>{marker.name}</TableCell>
-                                    <TableCell>Role</TableCell>
-                                    <TableCell>Phone</TableCell>
-                                    <TableCell>Address</TableCell>
-                                    <TableCell>Phone</TableCell>
-                                    <TableCell align="center">
-                                        <Button color="primary" variant="outlined" key={marker.id} col={1} endIcon={<EditRounded />}>
-                                            Edit
-                                        </Button>
-                                        {/* <Button color="secondary" col={1}>
+        <MainCard title="Users Table">
+            <Paper sx={{ width: '100%' }}>
+                <TableContainer sx={{ maxHeight: 700 }}>
+                    <Table stickyHeader aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell col={1}>S/N</TableCell>
+                                <TableCell>Name</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Role</TableCell>
+                                <TableCell>Phone</TableCell>
+                                <TableCell>Address</TableCell>
+                                <TableCell align="center" col={3}>
+                                    Action
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {markers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((marker) => {
+                                return (
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={marker.id}>
+                                        <TableCell col={1}>{marker.id}</TableCell>
+                                        <TableCell>{marker.name}</TableCell>
+                                        <TableCell>Role</TableCell>
+                                        <TableCell>Phone</TableCell>
+                                        <TableCell>Address</TableCell>
+                                        <TableCell>Phone</TableCell>
+                                        <TableCell align="center">
+                                            <Button color="primary" variant="outlined" key={marker.id} col={1} endIcon={<EditRounded />}>
+                                                Edit
+                                            </Button>
+                                            {/* <Button color="secondary" col={1}>
                                             Edit
                                         </Button> */}
-                                        <Button color="error" variant="contained" key={marker.id} col={1} startIcon={<DeleteIcon />}>
-                                            Delete
-                                        </Button>
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={markers.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-        </Paper>
+                                            <Button color="error" variant="contained" key={marker.id} col={1} startIcon={<DeleteIcon />}>
+                                                Delete
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={markers.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </Paper>
+        </MainCard>
     );
 };
 export default Tables;
