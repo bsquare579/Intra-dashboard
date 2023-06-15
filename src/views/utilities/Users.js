@@ -54,6 +54,7 @@ const Users = () => {
 
     useEffect(() => {
         getUsers();
+        console.log(data);
     }, []);
 
     return (
